@@ -28,7 +28,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
-  List<dynamic> _allContent = [];
+  final List<dynamic> _allContent = [];
   List<dynamic> _filteredContent = [];
   bool _isLoading = true;
 
@@ -152,7 +152,8 @@ class FocusableSearchResultTile extends StatefulWidget {
   });
 
   @override
-  State<FocusableSearchResultTile> createState() => _FocusableSearchResultTileState();
+  State<FocusableSearchResultTile> createState() =>
+      _FocusableSearchResultTileState();
 }
 
 class _FocusableSearchResultTileState extends State<FocusableSearchResultTile> {
@@ -187,7 +188,7 @@ class _FocusableSearchResultTileState extends State<FocusableSearchResultTile> {
       duration: const Duration(milliseconds: 200),
       color: _isFocused ? Colors.blueGrey.shade800 : Colors.transparent,
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h), // Küçültüldü
+        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
         autofocus: widget.autofocus,
         onFocusChange: (hasFocus) {
           setState(() {
@@ -195,24 +196,26 @@ class _FocusableSearchResultTileState extends State<FocusableSearchResultTile> {
           });
         },
         leading: CircleAvatar(
-          radius: 18.r, // Küçültüldü
+          radius: 18.r,
           backgroundColor: Colors.grey.shade800,
           backgroundImage: hasImage ? NetworkImage(streamIcon) : null,
           onBackgroundImageError: hasImage ? (exception, stackTrace) {} : null,
           child: !hasImage
-              ? Icon(icon, size: 14.sp, color: _isFocused ? Colors.amber : Colors.white) // Küçültüldü
+              ? Icon(icon,
+              size: 14.sp,
+              color: _isFocused ? Colors.amber : Colors.white)
               : null,
         ),
         title: Text(
           item.name,
           style: TextStyle(
-            fontSize: 11.sp, // Küçültüldü
+            fontSize: 11.sp,
             fontWeight: _isFocused ? FontWeight.bold : FontWeight.normal,
           ),
         ),
         subtitle: Text(
           type,
-          style: TextStyle(fontSize: 9.sp), // Küçültüldü
+          style: TextStyle(fontSize: 9.sp),
         ),
         onTap: widget.onTap,
       ),

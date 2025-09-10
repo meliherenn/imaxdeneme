@@ -4,7 +4,9 @@ import 'package:imaxip/providers/auth_provider.dart';
 import 'package:imaxip/screens/home_screen.dart';
 import 'package:imaxip/screens/login_screen.dart';
 import 'package:provider/provider.dart';
-// media_kit import'u ve başlatma kodu kaldırıldı.
+
+
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

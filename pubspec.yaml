@@ -24,6 +24,7 @@ dependencies:
   # VLC Oynatıcı paketi eklendi
   flutter_vlc_player: ^7.4.3
 
+  path: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

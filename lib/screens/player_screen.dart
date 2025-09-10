@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data'; // Uint8List için bu import gerekli
+// Uint8List için bu import gerekli
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +8,6 @@ import 'package:imaxip/models/channel_model_for_db.dart';
 import 'package:imaxip/models/history_item_model.dart';
 import 'package:imaxip/providers/auth_provider.dart';
 import 'package:imaxip/services/database_helper.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:saver_gallery/saver_gallery.dart';
 import 'package:screen_brightness/screen_brightness.dart';
@@ -67,7 +65,7 @@ class _PlayerScreenState extends State<PlayerScreen> with TickerProviderStateMix
   void _initializePlayer() {
     _vlcViewController = VlcPlayerController.network(
       widget.streamUrl,
-      hwAcc: HwAcc.full,
+      hwAcc: HwAcc.disabled,
       autoPlay: true,
       options: VlcPlayerOptions(
         advanced: VlcAdvancedOptions([
@@ -191,10 +189,10 @@ class _PlayerScreenState extends State<PlayerScreen> with TickerProviderStateMix
   Future<void> _takeSnapshot() async {
     // 1. takeSnapshot() bir Uint8List döndürür, File değil.
     // Bu yüzden değişken türünü Uint8List olarak değiştiriyoruz.
-    final Uint8List? imageBytes = await _vlcViewController.takeSnapshot();
+    final Uint8List imageBytes = await _vlcViewController.takeSnapshot();
 
     // 2. Görüntü verisinin alınıp alınamadığını kontrol et.
-    if (imageBytes == null || imageBytes.isEmpty) {
+    if (imageBytes.isEmpty) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Hata: Anlık görüntü verisi oluşturulamadı.")),
@@ -493,7 +491,7 @@ class _PlayerScreenState extends State<PlayerScreen> with TickerProviderStateMix
                     )),
                     const Divider(color: Colors.white54),
                   ],
-                  if (subtitleTracks.length > 0) ...[
+                  if (subtitleTracks.isNotEmpty) ...[
                     Text("Altyazı", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white70)),
                     ...subtitleTracks.entries.map((entry) => RadioListTile<int>(
                       title: Text(entry.value == "Disable" ? "Kapalı" : entry.value, style: const TextStyle(color: Colors.white)),
